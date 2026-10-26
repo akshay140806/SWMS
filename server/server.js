@@ -107,13 +107,24 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: allowedOrigins, credentials: true } });
 initSocket(io);
 
-connectDB(process.env.MONGO_URI || process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/smart-warehouse')
-  .then(() => {
-    // No auto-seed: a fresh business starts empty and completes onboarding.
-    // Optional demo data for durable DBs: npm run seed.
-    server.listen(PORT, () => console.log(`Server running on :${PORT}`));
-  })
-  .catch((e) => {
-    console.error('DB connect failed', e.message);
-    process.exit(1);
-  });
+// Listen immediately on PORT so cloud platforms (Render, Railway) detect open port without timing out
+server.listen(PORT, '0.0.0.0', () => console.log(`Server listening on port :${PORT}`));
+
+let isConnecting = false;
+async function initDatabase() {
+  if (mongoose.connection.readyState === 1 || isConnecting) return;
+  isConnecting = true;
+  const uri = process.env.MONGO_URI || process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/smart-warehouse';
+  try {
+    await connectDB(uri);
+    isConnecting = false;
+  } catch (e) {
+    isConnecting = false;
+    console.error('MongoDB connection attempt failed:', e.message);
+    console.warn('-> Tip: If deploying on Render, make sure MongoDB Atlas Network Access allows 0.0.0.0/0 (IP whitelist).');
+    console.log('-> Retrying MongoDB connection in 5 seconds...');
+    setTimeout(initDatabase, 5000);
+  }
+}
+
+initDatabase();

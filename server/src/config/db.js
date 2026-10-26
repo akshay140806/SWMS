@@ -15,10 +15,15 @@ export async function connectDB(uri) {
   const finalUri = uri || process.env.MONGO_URI || process.env.MONGODB_URI;
   if (!finalUri) throw new Error('MONGO_URI missing');
 
-  mongoose.connection.on('error', (err) => console.error('MongoDB error:', err.message));
-  mongoose.connection.on('disconnected', () => console.warn('MongoDB disconnected'));
+  // Prevent duplicate listener attachments on reconnection retries
+  if (mongoose.connection.listenerCount('error') === 0) {
+    mongoose.connection.on('error', (err) => console.error('MongoDB error:', err.message));
+  }
+  if (mongoose.connection.listenerCount('disconnected') === 0) {
+    mongoose.connection.on('disconnected', () => console.warn('MongoDB disconnected'));
+  }
 
-  await mongoose.connect(finalUri);
+  await mongoose.connect(finalUri, { serverSelectionTimeoutMS: 5000 });
   console.log(`MongoDB connected to [${mongoose.connection.host}/${mongoose.connection.name}]`);
 }
 
