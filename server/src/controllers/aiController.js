@@ -248,7 +248,7 @@ INSTRUCTIONS:
         const geminiData = await geminiRes.json();
         const text = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
         if (text && text.trim().length > 5) {
-          return { text: text.trim(), source: 'Google Gemini 3.8 Live' };
+          return { text: text.trim(), source: 'WareX AI Live' };
         }
       }
     } catch (e) {
