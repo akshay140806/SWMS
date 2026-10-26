@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  font-family: Inter, system-ui, -apple-system, Arial, sans-serif;
+  --brand: #2563eb;
+  --bg: #f8fafc;
+}
+body { margin: 0; background: var(--bg); color: #0f172a; }
+
+/* Crisp, high-contrast dark mode foundation */
+.dark body {
+  background: #090d16;
+  color: #f8fafc;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+/* Ensure strong, crisp legibility in dark mode across all pages */
+.dark .text-slate-400,
+.dark .text-slate-500 {
+  color: #cbd5e1 !important; /* slate-300: highly legible on dark backgrounds */
+}
+.dark .text-slate-600 {
+  color: #e2e8f0 !important; /* slate-200 */
+}
+.dark .text-slate-700:not(.dark\:text-slate-900) {
+  color: #f1f5f9 !important; /* slate-100 */
+}
+
+/* Table legibility */
+.dark th {
+  color: #cbd5e1 !important;
+}
+.dark td {
+  color: #f1f5f9;
+}
+.dark tr:hover td {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Form inputs & controls legibility */
+.dark input,
+.dark select,
+.dark textarea {
+  color: #f8fafc;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* Recharts SVG and Tooltips in Dark Mode */
+.dark .recharts-text {
+  fill: #cbd5e1 !important;
+}
+.dark .recharts-cartesian-grid line {
+  stroke: rgba(255, 255, 255, 0.1) !important;
+}
+.dark .recharts-default-tooltip {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5) !important;
+}
+.dark .recharts-tooltip-item,
+.dark .recharts-tooltip-label {
+  color: #f1f5f9 !important;
+}
+
+.tnum { font-variant-numeric: tabular-nums; }
+
+@media print {
+  header, aside, footer, .no-print { display: none !important; }
+  main { padding: 0 !important; }
+}

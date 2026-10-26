@@ -1,0 +1,30 @@
+{
+  "name": "smart-warehouse-client",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.9.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "axios": "^1.20.0",
+    "framer-motion": "^14.1.0",
+    "lucide-react": "^1.56.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.90.0",
+    "react-hot-toast": "^2.6.1",
+    "react-router-dom": "^6.23.1",
+    "recharts": "^3.10.1",
+    "socket.io-client": "^4.7.5",
+    "tailwindcss": "^4.3.3",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.0"
+  }
+}
