@@ -21,15 +21,21 @@
     "react-hot-toast": "^2.6.1",
     "react-router-dom": "^6.23.1",
     "recharts": "^3.10.1",
+    "rollup": "4.64.5",
     "socket.io-client": "^4.7.5",
     "tailwindcss": "^4.3.3",
     "vite": "^5.4.0",
     "zod": "^3.25.76"
   },
   "optionalDependencies": {
-    "@esbuild/linux-x64": "^0.21.5"
+    "@esbuild/linux-x64": "^0.21.5",
+    "@rollup/rollup-linux-x64-gnu": "4.64.5",
+    "@rollup/rollup-linux-x64-musl": "4.64.5"
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
